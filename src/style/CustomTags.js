@@ -9,6 +9,14 @@ font-weight: 900;
 color: #18242e;
 font-family: inter, sans-serif;
 `
+export const Hfive = styled.h5`
+font-size: 20px;
+line-height: 52px;
+font-weight: 900;
+color: #18242e;
+font-family: inter, sans-serif;
+margin-right:15px;
+`
 export const PokemonContainer = styled.div`
     display:flex;
     justify-content:center;

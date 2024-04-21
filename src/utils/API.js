@@ -11,26 +11,12 @@ export const readAll = async (path='') => {
                 }
             })
             const response = await authAxios.get(`${BASE_URL}${path}`)
-            return response.data.results;
+            return response.data;
         } catch (err) {
             return err;
         }
     
   }
   
-  export const read = async (path='') => {
-    
-    try {
-        const authAxios = axios.create({
-            headers: {
-                'Accept': 'application/json',
-            }
-        })
-        const response = await authAxios.get(`${BASE_URL}${path}`)
-        return response.data;
-    } catch (err) {
-        return err;
-    }
 
-}
  
