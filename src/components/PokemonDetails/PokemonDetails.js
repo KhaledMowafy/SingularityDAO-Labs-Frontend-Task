@@ -1,12 +1,12 @@
-
-"use client"
-import {useState, useEffect} from 'react';
+import React from 'react'
+import {useState, useEffect} from 'react'
 import { useAllCategory } from '@/utils/Hooks';
-import { FlexColumn, Hone, PokemonContainer, PokemonGrid } from '@/style/CustomTags';
-import { Hfive } from '@/style/CustomTags';
+import { Hfive, PokemonContainer, FlexColumn, Hone } from '@/style/CustomTags';
 import Chart from "react-apexcharts";
-const Pokemon = ({ params }) => {
-  const { data, isLoading} = useAllCategory(`/pokemon/${params.slug}`);
+
+function PokemonDetails({name}) {
+
+    const { data, isLoading} = useAllCategory(`/pokemon/${name}`);
     const [options, setOptions] = useState();
     const [xaxis, setXaxis] = useState();
     const [chartData, setChartData] = useState({});
@@ -61,34 +61,39 @@ const Pokemon = ({ params }) => {
     },[xaxis, options])
 
   return (
-    <FlexColumn>
-      <Hone>Pokemon Type: {data?.name}</Hone>
-      <PokemonContainer>
-            <Hfive>Order: {data?.order} </Hfive>
-            <Hfive>Base Experience: {data?.base_experience}</Hfive> 
-            <Hfive>Species: {data?.species.name}</Hfive> 
-      </PokemonContainer>
-      <PokemonContainer>
-        <Hfive>Types: </Hfive>
-           {data?.types.map((item,index)=>(
-            <Hfive key={item.type.name}>{item.type.name}</Hfive>
-           ))}
-      </PokemonContainer>
-      <PokemonContainer>
-        {isLoading?<p>Loading...</p>:
-      <Chart
-              options={chartData}
-              series={chartData.series}
-              width="500"
-            />}
-      </PokemonContainer>
-   <PokemonContainer>
-    {data?.abilities.map((item,index)=>(
-        <Hfive key={item.ability.name}>Ability: {item.ability.name}</Hfive>
-    ))}
-  </PokemonContainer>
-  </FlexColumn>
-);
-};
+    <div>
+        {data?.response&&data?.response.data==='Not Found'?
+        <Hfive>Pokemon was not found, try Charizard instead!</Hfive>:
+        <FlexColumn>
+        <Hone>Pokemon Type: {data?.name}</Hone>
+        <PokemonContainer>
+              <Hfive>Order: {data?.order} </Hfive>
+              <Hfive>Base Experience: {data?.base_experience}</Hfive> 
+              <Hfive>Species: {data?.species.name}</Hfive> 
+        </PokemonContainer>
+        <PokemonContainer>
+          <Hfive>Types: </Hfive>
+             {data?.types.map((item,index)=>(
+              <Hfive key={item.type.name}>{item.type.name}</Hfive>
+             ))}
+        </PokemonContainer>
+        <PokemonContainer>
+          {isLoading?<p>Loading...</p>:
+        <Chart
+                options={chartData}
+                series={chartData.series}
+                width="500"
+              />}
+        </PokemonContainer>
+     <PokemonContainer>
+      {data?.abilities.map((item,index)=>(
+          <Hfive key={item.ability.name}>Ability: {item.ability.name}</Hfive>
+      ))}
+    </PokemonContainer>
+    </FlexColumn>
+        }
+    </div>
+  )
+}
 
-export default Pokemon;
+export default PokemonDetails

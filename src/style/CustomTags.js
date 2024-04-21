@@ -47,3 +47,9 @@ export const PokemonGrid = styled.a`
         color:white;
       }
 `
+export const SearchInput = styled.input`
+      border:none;
+      margin-left:10px;
+      margin-right:10px;
+      padding:5px;
+`
